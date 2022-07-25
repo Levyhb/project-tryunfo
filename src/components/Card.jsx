@@ -6,11 +6,6 @@ export default class Card extends Component {
     const { cardName,
       cardAttr1, cardAttr2, cardAttr3, cardImage,
       cardRare, cardTrunfo, cardDescription } = this.props;
-
-    const aloha = () => {
-      if (cardTrunfo === 'True') return 'Super Trunfo';
-      return '';
-    };
     return (
       <div>
         <span data-testid="name-card">
