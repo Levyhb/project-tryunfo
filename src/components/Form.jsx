@@ -7,7 +7,7 @@ class Form extends Component {
     const { onInputChange, cardName,
       cardAttr1, cardAttr2, cardAttr3, cardImage,
       cardRare, cardTrunfo, cardDescription, isSaveButtonDisabled,
-      onSaveButtonClick } = this.props;
+      onSaveButtonClick, hasTrunfo } = this.props;
     return (
       <form className="form">
         <label htmlFor="name">
@@ -86,13 +86,16 @@ class Form extends Component {
           <option value="raro">Raro</option>
           <option value="muito raro">Muito Raro</option>
         </select>
-        <input
-          type="checkbox"
-          data-testid="trunfo-input"
-          checked={ cardTrunfo }
-          onChange={ onInputChange }
-          name="cardTrunfo"
-        />
+
+        {hasTrunfo ? 'Você já tem um Super Trunfo em seu baralho' : (
+          <input
+            type="checkbox"
+            data-testid="trunfo-input"
+            checked={ cardTrunfo }
+            onChange={ onInputChange }
+            name="cardTrunfo"
+          />
+        )}
 
         <button
           data-testid="save-button"
@@ -114,11 +117,12 @@ Form.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardDescription: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.string.isRequired,
-  cardAttr1: PropTypes.number.isRequired,
-  cardAttr2: PropTypes.number.isRequired,
-  cardAttr3: PropTypes.number.isRequired,
+  cardAttr1: PropTypes.string.isRequired,
+  cardAttr2: PropTypes.string.isRequired,
+  cardAttr3: PropTypes.string.isRequired,
   onSaveButtonClick: PropTypes.string.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
+  hasTrunfo: PropTypes.bool.isRequired,
 };
 
 export default Form;

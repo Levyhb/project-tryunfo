@@ -12,9 +12,11 @@ class App extends React.Component {
       cardAttr3: 0,
       cardImage: '',
       cardRare: 'normal',
-      // cardTrunfo: '',
+      cardTrunfo: '',
+      hasTrunfo: false,
       cardDescription: '',
       isSaveButtonDisabled: true,
+      deck: [],
     };
   }
 
@@ -55,7 +57,8 @@ class App extends React.Component {
     event.preventDefault();
     const { cardName,
       cardAttr1, cardAttr2, cardAttr3, cardImage,
-      cardDescription, cardRare } = this.state;
+      cardDescription, cardRare, cardTrunfo } = this.state;
+
     const card = {
       name: cardName,
       attribute1: cardAttr1,
@@ -64,24 +67,35 @@ class App extends React.Component {
       image: cardImage,
       description: cardDescription,
       rarity: cardRare,
+      trunfo: cardTrunfo,
     };
 
-    this.setState({ cardName: '',
+    this.setState((prevState) => ({ cardName: '',
       cardAttr1: 0,
       cardAttr2: 0,
       cardAttr3: 0,
       cardImage: '',
       cardDescription: '',
       cardRare: 'normal',
+      deck: [...prevState.deck, card],
+      cardTrunfo: false,
+    }), () => {
+      const { deck } = this.state;
+      // deck.forEach((item) => {
+      //   if (item.trunfo === true) {
+      //     this.setState({ cardTrunfo: disabled });
+      //   }
+      // });
+      const trueOrFalse = deck.some((item) => item.trunfo);
+      this.setState({ hasTrunfo: trueOrFalse });
     });
-    return card;
   }
 
   render() {
     const { cardName,
       cardAttr1, cardAttr2, cardAttr3,
       cardImage, cardRare, cardTrunfo,
-      cardDescription, isSaveButtonDisabled } = this.state;
+      cardDescription, isSaveButtonDisabled, hasTrunfo } = this.state;
 
     return (
       <div>
@@ -99,6 +113,7 @@ class App extends React.Component {
             cardDescription={ cardDescription }
             isSaveButtonDisabled={ isSaveButtonDisabled }
             onSaveButtonClick={ this.onSaveButtonClick }
+            hasTrunfo={ hasTrunfo }
           />
           <Card
             cardName={ cardName }
