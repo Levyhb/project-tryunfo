@@ -81,11 +81,6 @@ class App extends React.Component {
       cardTrunfo: false,
     }), () => {
       const { deck } = this.state;
-      // deck.forEach((item) => {
-      //   if (item.trunfo === true) {
-      //     this.setState({ cardTrunfo: disabled });
-      //   }
-      // });
       const trueOrFalse = deck.some((item) => item.trunfo);
       this.setState({ hasTrunfo: trueOrFalse });
     });
@@ -95,8 +90,8 @@ class App extends React.Component {
     const { cardName,
       cardAttr1, cardAttr2, cardAttr3,
       cardImage, cardRare, cardTrunfo,
-      cardDescription, isSaveButtonDisabled, hasTrunfo } = this.state;
-
+      cardDescription, isSaveButtonDisabled, hasTrunfo, deck } = this.state;
+    // console.log(deck);
     return (
       <div>
         <h1>Tryunfo</h1>
@@ -125,6 +120,21 @@ class App extends React.Component {
             cardTrunfo={ cardTrunfo }
             cardDescription={ cardDescription }
           />
+          <div>
+            Todas as cartas :
+            { deck.map((everyCard) => (
+              <Card
+                key="a"
+                cardName={ everyCard.name }
+                cardAttr1={ everyCard.attribute1 }
+                cardAttr2={ everyCard.attribute2 }
+                cardAttr3={ everyCard.attribute3 }
+                cardImage={ everyCard.image }
+                cardRare={ everyCard.rarity }
+                cardTrunfo={ everyCard.trunfo }
+                cardDescription={ everyCard.description }
+              />))}
+          </div>
         </div>
       </div>
     );
