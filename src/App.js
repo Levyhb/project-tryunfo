@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from './components/Card';
 import Form from './components/Form';
+import './App.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -40,10 +41,9 @@ class App extends React.Component {
 
     if (cardName.length > 0
         && cardDescription.length > 0 && cardImage.length > 0 && verifyStatus) {
-      this.setState({ isSaveButtonDisabled: false });
-    } else {
-      this.setState({ isSaveButtonDisabled: true });
+      return this.setState({ isSaveButtonDisabled: false });
     }
+    this.setState({ isSaveButtonDisabled: true });
   })
 
   onInputChange = ({ target }) => {
@@ -57,7 +57,7 @@ class App extends React.Component {
     event.preventDefault();
     const { cardName,
       cardAttr1, cardAttr2, cardAttr3, cardImage,
-      cardDescription, cardRare, cardTrunfo } = this.state;
+      cardDescription, cardRare, cardTrunfo, removeButton } = this.state;
 
     const card = {
       name: cardName,
@@ -68,6 +68,7 @@ class App extends React.Component {
       description: cardDescription,
       rarity: cardRare,
       trunfo: cardTrunfo,
+      button: removeButton,
     };
 
     this.setState((prevState) => ({ cardName: '',
@@ -86,17 +87,31 @@ class App extends React.Component {
     });
   }
 
+  removeCard = (nameItem) => {
+    const { deck } = this.state;
+    const filterTrunfo = deck.filter((item) => item.name !== nameItem);
+    this.setState({
+      deck: filterTrunfo,
+    });
+    const haveTrunfo = filterTrunfo.find((card) => card.cardTrunfo === true);
+    if (!haveTrunfo) {
+      this.setState({ hasTrunfo: false });
+    }
+  }
+
   render() {
     const { cardName,
       cardAttr1, cardAttr2, cardAttr3,
       cardImage, cardRare, cardTrunfo,
       cardDescription, isSaveButtonDisabled, hasTrunfo, deck } = this.state;
-    // console.log(deck);
+
     return (
       <div>
-        <h1>Tryunfo</h1>
-        <div>
+        <h1 className="title">Tryunfo</h1>
+
+        <div className="card-generator">
           <Form
+            className="form-div"
             onInputChange={ this.onInputChange }
             cardName={ cardName }
             cardAttr1={ cardAttr1 }
@@ -111,6 +126,7 @@ class App extends React.Component {
             hasTrunfo={ hasTrunfo }
           />
           <Card
+            className="card-div"
             cardName={ cardName }
             cardAttr1={ cardAttr1 }
             cardAttr2={ cardAttr2 }
@@ -120,11 +136,26 @@ class App extends React.Component {
             cardTrunfo={ cardTrunfo }
             cardDescription={ cardDescription }
           />
-          <div>
-            Todas as cartas :
-            { deck.map((everyCard) => (
+        </div>
+
+        <h3 className="deck-title"> Baralho: </h3>
+
+        <label htmlFor="search-card" className="search-card">
+          Buscar carta
+          <input
+            type="text"
+            placeholder="nome da carta"
+            id="search-card"
+            onChange={ ({ target }) => deck.filter(
+              (element) => element.includes(target.value),
+            ) }
+          />
+        </label>
+
+        <div className="deck-container">
+          { deck.map((everyCard) => (
+            <div key={ everyCard.name } className="card-deck">
               <Card
-                key="a"
                 cardName={ everyCard.name }
                 cardAttr1={ everyCard.attribute1 }
                 cardAttr2={ everyCard.attribute2 }
@@ -133,8 +164,17 @@ class App extends React.Component {
                 cardRare={ everyCard.rarity }
                 cardTrunfo={ everyCard.trunfo }
                 cardDescription={ everyCard.description }
-              />))}
-          </div>
+                removeCard={ this.removeCard }
+              />
+              <button
+                data-testid="delete-button"
+                type="button"
+                onClick={ () => this.removeCard(everyCard.name) }
+              >
+                Excluir
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     );

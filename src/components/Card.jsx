@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import './cards.css';
 
 export default class Card extends Component {
   render() {
@@ -7,14 +8,30 @@ export default class Card extends Component {
       cardAttr1, cardAttr2, cardAttr3, cardImage,
       cardRare, cardTrunfo, cardDescription } = this.props;
     return (
-      <div>
-        <span data-testid="name-card">
-          { cardName }
-        </span>
-        <img data-testid="image-card" src={ cardImage } alt={ cardName } />
-        <p data-testid="description-card">
-          { cardDescription }
-        </p>
+      <div className="card-container">
+
+        <label htmlFor="name" className="name-card">
+          Nome:
+          <span data-testid="name-card" className="input-name" id="name">
+            { cardName }
+          </span>
+        </label>
+
+        <img
+          data-testid="image-card"
+          src={ cardImage }
+          alt={ cardName }
+          width="200px"
+          className="img-card"
+        />
+
+        <label htmlFor="description" className="description-card">
+          Descrição:
+          <p id="description" data-testid="description-card">
+            { cardDescription }
+          </p>
+        </label>
+
         <div className="attributes">
           <span data-testid="attr1-card">
             { cardAttr1 }
@@ -30,8 +47,13 @@ export default class Card extends Component {
           { cardRare }
         </span>
         {
-          cardTrunfo === true && <span data-testid="trunfo-card">Super Trunfo</span>
+          cardTrunfo && <span data-testid="trunfo-card">Super Trunfo</span>
         }
+        {/* {
+          shouldRenderDeleteButton
+            ? <button key={ cardName } type="button"> Excluir </button> : undefined
+        } */}
+
       </div>
     );
   }

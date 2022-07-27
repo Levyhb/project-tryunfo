@@ -1,0 +1,42 @@
+.card-container {
+  align-items: center;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  padding: 10px;
+  width: 40%;
+}
+
+.input-name {
+  text-align: center;
+}
+
+.name-card {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px;
+  width: 100%;
+}
+
+.img-card {
+  height: 300px;
+  padding: 20px;
+  width: 80%;
+}
+
+.description-card {
+  text-align: center;
+  width: 70%;
+}
+
+.description-card p {
+  border: 1px solid black;
+  height: 50px;
+  overflow-y: scroll;
+  padding: 10px;
+}
+
+.card-deck .card-container {
+  width: 90%;
+}
