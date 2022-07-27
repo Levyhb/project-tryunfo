@@ -10,12 +10,9 @@ export default class Card extends Component {
     return (
       <div className="card-container">
 
-        <label htmlFor="name" className="name-card">
-          Nome:
-          <span data-testid="name-card" className="input-name" id="name">
-            { cardName }
-          </span>
-        </label>
+        <span data-testid="name-card" className="input-name" id="name">
+          { cardName }
+        </span>
 
         <img
           data-testid="image-card"
@@ -64,7 +61,7 @@ Card.propTypes = {
   cardRare: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
   cardDescription: PropTypes.string.isRequired,
-  cardTrunfo: PropTypes.string.isRequired,
+  cardTrunfo: PropTypes.bool.isRequired,
   cardAttr1: PropTypes.number.isRequired,
   cardAttr2: PropTypes.number.isRequired,
   cardAttr3: PropTypes.number.isRequired,

@@ -13,12 +13,13 @@ class App extends React.Component {
       cardAttr3: 0,
       cardImage: '',
       cardRare: 'normal',
-      cardTrunfo: '',
+      cardTrunfo: false,
       hasTrunfo: false,
       cardDescription: '',
       isSaveButtonDisabled: true,
       deck: [],
       filterCardsName: '',
+      filterByRarity: '',
     };
   }
 
@@ -81,6 +82,7 @@ class App extends React.Component {
       cardRare: 'normal',
       deck: [...prevState.deck, card],
       cardTrunfo: false,
+      isSaveButtonDisabled: true,
     }), () => {
       const { deck } = this.state;
       const trueOrFalse = deck.some((item) => item.trunfo);
@@ -101,7 +103,8 @@ class App extends React.Component {
   }
 
   filterCards = ({ target }) => {
-    const { name, value } = target;
+    const { name } = target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({ [name]: value });
   }
 
@@ -110,9 +113,12 @@ class App extends React.Component {
       cardAttr1, cardAttr2, cardAttr3,
       cardImage, cardRare, cardTrunfo,
       cardDescription, isSaveButtonDisabled, hasTrunfo, deck,
-      filterCardsName } = this.state;
+      filterCardsName, filterByRarity } = this.state;
 
-    const filteredCards = deck.filter(({ name }) => name.includes(filterCardsName));
+    const filteredCards = deck.filter(({ name }) => name
+      .includes(filterCardsName)).filter(({ rarity }) => (
+      filterByRarity === 'todas' || !filterByRarity ? rarity : rarity === filterByRarity
+    ));
 
     return (
       <div>
@@ -149,17 +155,29 @@ class App extends React.Component {
 
         <h3 className="deck-title"> Baralho: </h3>
 
-        <label htmlFor="search-card" className="search-card">
-          Buscar carta
-          <input
-            type="text"
-            name="filterCardsName"
-            placeholder="nome da carta"
-            id="search-card"
-            data-testid="name-filter"
-            onChange={ (e) => { this.filterCards(e); } }
-          />
-        </label>
+        <div className="filters">
+          <label htmlFor="search-card" className="search-card">
+            Buscar carta
+            <input
+              type="text"
+              name="filterCardsName"
+              placeholder="nome da carta"
+              id="search-card"
+              data-testid="name-filter"
+              onChange={ (e) => { this.filterCards(e); } }
+            />
+          </label>
+          <select
+            name="filterByRarity"
+            data-testid="rare-filter"
+            onChange={ (item) => { this.filterCards(item); } }
+          >
+            <option value="todas">Todas</option>
+            <option value="normal">Normal</option>
+            <option value="raro"> Raro </option>
+            <option value="muito raro">Muito Raro</option>
+          </select>
+        </div>
 
         <div className="deck-container">
           { filteredCards.map((everyCard) => (

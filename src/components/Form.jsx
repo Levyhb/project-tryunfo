@@ -123,16 +123,16 @@ class Form extends Component {
 }
 
 Form.propTypes = {
-  onInputChange: PropTypes.string.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  onSaveButtonClick: PropTypes.func.isRequired,
   cardName: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
   cardDescription: PropTypes.string.isRequired,
-  cardTrunfo: PropTypes.string.isRequired,
+  cardTrunfo: PropTypes.bool.isRequired,
   cardAttr1: PropTypes.number.isRequired,
   cardAttr2: PropTypes.number.isRequired,
   cardAttr3: PropTypes.number.isRequired,
-  onSaveButtonClick: PropTypes.string.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   hasTrunfo: PropTypes.bool.isRequired,
 };
