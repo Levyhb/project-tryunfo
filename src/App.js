@@ -20,6 +20,7 @@ class App extends React.Component {
       deck: [],
       filterCardsName: '',
       filterByRarity: '',
+      filterTrunfo: '',
     };
   }
 
@@ -113,12 +114,14 @@ class App extends React.Component {
       cardAttr1, cardAttr2, cardAttr3,
       cardImage, cardRare, cardTrunfo,
       cardDescription, isSaveButtonDisabled, hasTrunfo, deck,
-      filterCardsName, filterByRarity } = this.state;
+      filterCardsName, filterByRarity, filterTrunfo } = this.state;
 
-    const filteredCards = deck.filter(({ name }) => name
-      .includes(filterCardsName)).filter(({ rarity }) => (
-      filterByRarity === 'todas' || !filterByRarity ? rarity : rarity === filterByRarity
-    ));
+    const filteredCards = deck.filter((trunfoCard) => (
+      filterTrunfo ? trunfoCard.trunfo === true : trunfoCard))
+      .filter(({ name }) => name.includes(filterCardsName))
+      .filter(({ rarity }) => (
+        filterByRarity === 'todas' || !filterByRarity ? rarity : rarity === filterByRarity
+      ));
 
     return (
       <div>
@@ -165,18 +168,32 @@ class App extends React.Component {
               id="search-card"
               data-testid="name-filter"
               onChange={ (e) => { this.filterCards(e); } }
+              disabled={ filterTrunfo }
             />
           </label>
+
           <select
             name="filterByRarity"
             data-testid="rare-filter"
             onChange={ (item) => { this.filterCards(item); } }
+            disabled={ filterTrunfo }
           >
             <option value="todas">Todas</option>
             <option value="normal">Normal</option>
             <option value="raro"> Raro </option>
             <option value="muito raro">Muito Raro</option>
           </select>
+
+          <label htmlFor="trunfoFilter">
+            Super Trunfo
+            <input
+              id="trunfoFilter"
+              name="filterTrunfo"
+              data-testid="trunfo-filter"
+              type="checkbox"
+              onChange={ (card) => { this.filterCards(card); } }
+            />
+          </label>
         </div>
 
         <div className="deck-container">

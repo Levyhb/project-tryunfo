@@ -46,10 +46,6 @@ export default class Card extends Component {
         {
           cardTrunfo && <span data-testid="trunfo-card">Super Trunfo</span>
         }
-        {/* {
-          shouldRenderDeleteButton
-            ? <button key={ cardName } type="button"> Excluir </button> : undefined
-        } */}
 
       </div>
     );
