@@ -18,6 +18,7 @@ class App extends React.Component {
       cardDescription: '',
       isSaveButtonDisabled: true,
       deck: [],
+      filterCardsName: '',
     };
   }
 
@@ -99,11 +100,19 @@ class App extends React.Component {
     }
   }
 
+  filterCards = ({ target }) => {
+    const { name, value } = target;
+    this.setState({ [name]: value });
+  }
+
   render() {
     const { cardName,
       cardAttr1, cardAttr2, cardAttr3,
       cardImage, cardRare, cardTrunfo,
-      cardDescription, isSaveButtonDisabled, hasTrunfo, deck } = this.state;
+      cardDescription, isSaveButtonDisabled, hasTrunfo, deck,
+      filterCardsName } = this.state;
+
+    const filteredCards = deck.filter(({ name }) => name.includes(filterCardsName));
 
     return (
       <div>
@@ -144,16 +153,16 @@ class App extends React.Component {
           Buscar carta
           <input
             type="text"
+            name="filterCardsName"
             placeholder="nome da carta"
             id="search-card"
-            onChange={ ({ target }) => deck.filter(
-              (element) => element.includes(target.value),
-            ) }
+            data-testid="name-filter"
+            onChange={ (e) => { this.filterCards(e); } }
           />
         </label>
 
         <div className="deck-container">
-          { deck.map((everyCard) => (
+          { filteredCards.map((everyCard) => (
             <div key={ everyCard.name } className="card-deck">
               <Card
                 cardName={ everyCard.name }
