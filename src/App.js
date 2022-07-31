@@ -29,14 +29,14 @@ class App extends React.Component {
       cardAttr1, cardAttr2, cardAttr3, cardImage,
       cardDescription } = this.state;
 
-    const number90 = 90;
-    const maxStatus = 210;
+    const number30 = 30;
+    const maxStatus = 90;
     const cardAttr1Int = parseInt(cardAttr1, 10);
     const cardAttr2Int = parseInt(cardAttr2, 10);
     const cardAttr3Int = parseInt(cardAttr3, 10);
 
     const statusIndividual = cardAttr1Int
-      <= number90 && cardAttr2Int <= number90 && cardAttr3Int <= number90;
+      <= number30 && cardAttr2Int <= number30 && cardAttr3Int <= number30;
     const positive = cardAttr1 >= 0 && cardAttr2 >= 0 && cardAttr3 >= 0;
     const status = cardAttr1Int + cardAttr2Int + cardAttr3Int <= maxStatus;
 
@@ -144,7 +144,8 @@ class App extends React.Component {
             hasTrunfo={ hasTrunfo }
           />
           <Card
-            className="card-div"
+            className={ cardRare }
+            // id={ cardRare }
             cardName={ cardName }
             cardAttr1={ cardAttr1 }
             cardAttr2={ cardAttr2 }
@@ -156,44 +157,45 @@ class App extends React.Component {
           />
         </div>
 
-        <h3 className="deck-title"> Baralho: </h3>
-
-        <div className="filters">
-          <label htmlFor="search-card" className="search-card">
-            Buscar carta
-            <input
-              type="text"
-              name="filterCardsName"
-              placeholder="nome da carta"
-              id="search-card"
-              data-testid="name-filter"
-              onChange={ (e) => { this.filterCards(e); } }
+        <div className="div-deck-container">
+          <h3 className="deck-title"> Deck: </h3>
+          <div className="filters">
+            <label htmlFor="search-card" className="search-card">
+              <input
+                type="text"
+                name="filterCardsName"
+                placeholder="Buscar carta"
+                className="input-group-text"
+                id="search-card"
+                data-testid="name-filter"
+                onChange={ (e) => { this.filterCards(e); } }
+                disabled={ filterTrunfo }
+              />
+            </label>
+            <select
+              className="form-select form-select-deck"
+              name="filterByRarity"
+              data-testid="rare-filter"
+              onChange={ (item) => { this.filterCards(item); } }
               disabled={ filterTrunfo }
-            />
-          </label>
-
-          <select
-            name="filterByRarity"
-            data-testid="rare-filter"
-            onChange={ (item) => { this.filterCards(item); } }
-            disabled={ filterTrunfo }
-          >
-            <option value="todas">Todas</option>
-            <option value="normal">Normal</option>
-            <option value="raro"> Raro </option>
-            <option value="muito raro">Muito Raro</option>
-          </select>
-
-          <label htmlFor="trunfoFilter">
-            Super Trunfo
-            <input
-              id="trunfoFilter"
-              name="filterTrunfo"
-              data-testid="trunfo-filter"
-              type="checkbox"
-              onChange={ (card) => { this.filterCards(card); } }
-            />
-          </label>
+            >
+              <option value="todas">Todas</option>
+              <option value="normal">Normal</option>
+              <option value="raro"> Raro </option>
+              <option value="muito raro">Muito Raro</option>
+            </select>
+            <label htmlFor="trunfoFilter" className="carta-especial-deck">
+              Carta Especial
+              <input
+                className="form-check-input"
+                id="trunfoFilter"
+                name="filterTrunfo"
+                data-testid="trunfo-filter"
+                type="checkbox"
+                onChange={ (card) => { this.filterCards(card); } }
+              />
+            </label>
+          </div>
         </div>
 
         <div className="deck-container">
@@ -211,6 +213,7 @@ class App extends React.Component {
                 removeCard={ this.removeCard }
               />
               <button
+                className="btn btn-outline-danger "
                 data-testid="delete-button"
                 type="button"
                 onClick={ () => this.removeCard(everyCard.name) }

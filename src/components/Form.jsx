@@ -10,7 +10,7 @@ class Form extends Component {
       onSaveButtonClick, hasTrunfo } = this.props;
     return (
       <form className="form">
-        <label htmlFor="name" className="name-input">
+        <label htmlFor="name" className="name-input text-colors">
           Nome
           <input
             id="name"
@@ -19,23 +19,26 @@ class Form extends Component {
             value={ cardName }
             name="cardName"
             onChange={ onInputChange }
+            className="name-forms input-group-text"
           />
         </label>
-        <label htmlFor="descricao" className="description-form">
+
+        <label htmlFor="descricao" className="description-form text-colors">
           Descrição
           <textarea
             id="descricao"
+            className="description-form form-control"
             name="cardDescription"
-            cols="30"
-            rows="10"
+            cols="50"
+            rows="3"
             data-testid="description-input"
             value={ cardDescription }
             onChange={ onInputChange }
           />
         </label>
 
-        <label htmlFor="attr1" className="attribute-form">
-          Attr1
+        <label htmlFor="attr1" className="attribute-form text-colors">
+          Magia
           <input
             type="number"
             name="cardAttr1"
@@ -43,10 +46,11 @@ class Form extends Component {
             id="attr1"
             value={ cardAttr1 }
             onChange={ onInputChange }
+            className="attr-input"
           />
         </label>
-        <label htmlFor="attr2" className="attribute-form">
-          Attr2
+        <label htmlFor="attr2" className="attribute-form text-colors">
+          Força
           <input
             type="number"
             name="cardAttr2"
@@ -54,10 +58,11 @@ class Form extends Component {
             id="attr2"
             value={ cardAttr2 }
             onChange={ onInputChange }
+            className="attr-input"
           />
         </label>
-        <label htmlFor="attr3" className="attribute-form">
-          Attr3
+        <label htmlFor="attr3" className="attribute-form text-colors">
+          Fogo
           <input
             type="number"
             name="cardAttr3"
@@ -65,10 +70,11 @@ class Form extends Component {
             id="attr3"
             value={ cardAttr3 }
             onChange={ onInputChange }
+            className="attr-input"
           />
         </label>
 
-        <label htmlFor="img-input" className="img-form">
+        <label htmlFor="img-input" className="img-form text-colors">
           Imagem
           <input
             id="img-input"
@@ -77,12 +83,14 @@ class Form extends Component {
             value={ cardImage }
             onChange={ onInputChange }
             name="cardImage"
+            className="input-group-text img-input"
           />
         </label>
 
-        <label htmlFor="select-box" className="rarity-form">
+        <label htmlFor="select-box" className="rarity-form text-colors">
           Rarity
           <select
+            className="form-select"
             id="select-box"
             data-testid="rare-input"
             value={ cardRare }
@@ -96,8 +104,8 @@ class Form extends Component {
         </label>
 
         {hasTrunfo ? 'Você já tem um Super Trunfo em seu baralho' : (
-          <label htmlFor="superTrunfo" className="superTrunfo">
-            Super Trunfo
+          <label htmlFor="superTrunfo" className="superTrunfo text-colors">
+            Carta Especial
             <input
               id="superTrunfo"
               type="checkbox"
@@ -105,18 +113,22 @@ class Form extends Component {
               checked={ cardTrunfo }
               onChange={ onInputChange }
               name="cardTrunfo"
+              className="form-check-input"
             />
           </label>
         )}
 
-        <button
-          data-testid="save-button"
-          type="submit"
-          onClick={ onSaveButtonClick }
-          disabled={ isSaveButtonDisabled }
-        >
-          Salvar
-        </button>
+        <div>
+          <button
+            data-testid="save-button"
+            type="submit"
+            onClick={ onSaveButtonClick }
+            disabled={ isSaveButtonDisabled }
+            className="save-btn btn"
+          >
+            Salvar
+          </button>
+        </div>
       </form>
     );
   }

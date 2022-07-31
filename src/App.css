@@ -1,3 +1,12 @@
+@font-face {
+  font-family: ' dungeon';
+  src: url('fontes/DUNGRG__.TTF');
+}
+
+body {
+  background-color: rgb(80, 80, 80);
+}
+
 .card-generator {
   display: flex;
   justify-content: space-between;
@@ -6,17 +15,36 @@
 }
 
 .title {
+  background-color: rgb(33, 33, 33);
+  color: white;
+  font-family: ' dungeon' , cursive;
+  font-size: 3.5em;
+  padding: 10px;
   text-align: center;
 }
 
 .deck-title {
+  font-weight: 700;
+  padding: 10px;
   text-align: center;
 }
 
 .deck-container {
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 30px;
   padding: 20px;
+}
+
+.div-deck-container {
+  background-color: rgb(24, 24, 24);
+  color: white;
+  margin-top: 20px;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .search-card {
@@ -26,7 +54,28 @@
 }
 
 .search-card input {
+  height: 25px;
   margin-left: 5px;
+}
+
+.form-select-deck {
+  height: 32px;
+  width: 10%;
+}
+
+.carta-especial-deck {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.carta-especial-deck input {
+  cursor: pointer;
+  margin-left: 5px;
+  transition: all 0.5s;
+}
+
+.carta-especial-deck input:checked {
+  transform: rotateY(360deg);
 }
 
 .card-deck {
@@ -35,12 +84,13 @@
   flex-direction: column;
 }
 
-.card-deck img {
-  height: 200px;
-  width: 230px;
+.deck-container .card-deck {
+  transform: scale(0.9);
+  width: 400px;
 }
 
-.filters {
-  display: flex;
-  justify-content: space-evenly;
+.deck-container .card-deck:hover {
+  margin: 0 20px;
+  transform: scale(1);
+  transition: all 0.5s;
 }
