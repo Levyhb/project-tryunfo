@@ -69,14 +69,14 @@ export default class Card extends Component {
             </div>
 
           </div>
-          {
-            cardTrunfo && <span
+          { cardTrunfo && (
+            <span
               data-testid="trunfo-card"
               className="trunfo"
             >
               Carta Especial
             </span>
-          }
+          )}
         </div>
       </div>
     );
