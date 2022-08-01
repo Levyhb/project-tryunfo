@@ -1,6 +1,6 @@
 # Projeto Tryunfo   
 
-- Projeto Tryunfo consiste em desenvolver um jogo de cartas com uso de estados de componentes em React, assim como captura de eventos e formulários.
+- Projeto Tryunfo consiste em desenvolver um gerador de cartas com uso de estados de componentes em React, assim como captura de eventos e formulários.
 ## Referência
 
  - [Trybe](https://www.betrybe.com/) 
